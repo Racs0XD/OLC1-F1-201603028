@@ -20,3 +20,12 @@ app.use(require('./routes/index'));
 app.listen(app.get('port'), () => {
     console.log(`Server on port ${app.get('port')}`);
 });
+
+//incorporando gramatica
+var fs = require("fs");
+var gramatica = require("../gramatica");
+
+fs.readFile("./src/entrada.txt", (err, data) => {
+  if (err) throw err;
+  gramatica.parse(data.toString());
+});

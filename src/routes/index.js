@@ -1,8 +1,9 @@
 const { Router } = require('express');
+var gramatica = require("../../gramatica");
 const router = Router()
 
 router.get('/', (req, res) => {
-    res.json({"Title":"Hola Mundo"});
+    res.json(lista);
 });
 
 router.get('/pb', (req, res) => {
