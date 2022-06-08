@@ -1,6 +1,6 @@
 %{
 	var flag=0;
-    var lista = [];
+    globalThis.lista = [];
     //este es un comentario
 %}
 

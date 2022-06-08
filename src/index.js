@@ -15,17 +15,12 @@ app.use(express.json());
 
 // rutas
 app.use(require('./routes/index'));
+app.use('/api/tokens',require('./routes/tokens'));
+app.use('/api/errores',require('./routes/errores'));
+
 
 //iniciando servidor
 app.listen(app.get('port'), () => {
     console.log(`Server on port ${app.get('port')}`);
 });
 
-//incorporando gramatica
-var fs = require("fs");
-var gramatica = require("../gramatica");
-
-fs.readFile("./src/entrada.txt", (err, data) => {
-  if (err) throw err;
-  gramatica.parse(data.toString());
-});
