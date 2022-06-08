@@ -1,0 +1,93 @@
+/*Primer archivo de prueba*/
+
+const double pi = 3.1416;
+int numero1 = 12;
+int numero2 = 10;
+int nombre = "esto es una cadena";
+char c1 = 'a';
+char c2 = 98;
+
+const double aritmetico1 = 5 + ( 3/4*1+1-1 /( 2 + numero1 *(numero2)**2));
+
+if ( c1 == c2 ) {
+    Println("ambos son iguales");
+} else if ( c1 > c2) {
+    Println("c1 es mayor");
+} else {
+    Println("c2 es mayor");
+}
+
+int suma(int a, int b) {
+    return a + b;
+}
+
+int resta(int a, int b){
+    return a -b ;
+}
+
+
+int potenciaComoSuma(int base, int exp) {
+    for(int i = 0; i < exp; i++) {
+        base = base + base;
+        
+        
+        if ( i % 2 == 0 ) {
+            Println("par");
+            continue;
+        }
+        
+        
+        if ( i == 11) {
+            break;
+        }
+    }
+    
+    return base;
+}
+
+
+{
+
+    // aqui se intenta poner algunas operaciones relacionales complejas
+    boolean a = true;
+    boolean b = false;
+    boolean c = !a;
+    void operacion(int tipoOp) {
+        switch(tipoOp){
+            case 1:
+                call suma(1,2);
+                break;
+            case 2:
+                call resta(2,1);
+                break;
+            case 3:
+                call potenciaComoSuma(2,2);
+                break;            
+        }
+    }
+    
+    void comparaciones() {
+        if( ((a == b) && (b != c)) || ((c == a) && (!b == !a))) {
+            Println("entra al if");
+            if( a == true && b == false) {
+                Println("entra al segundo if");
+            }else {
+                if (c == false) {
+                    Println("c es false");
+                } else {
+                    {
+                        int resultado = suma(3,3);
+                        int resultado2 = resta(4,3);
+                        int pot = potenciaComoSuma(resultado, resultado2);
+                        if ( ( resultado >= 6 && resultado2 -1 == 0 ) ) {
+                            Println("no se jeje salu2");
+                        }
+                    }
+                }
+            }
+        }
+    
+    }
+    
+    
+}
