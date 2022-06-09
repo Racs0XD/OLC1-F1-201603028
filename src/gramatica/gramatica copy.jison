@@ -7,8 +7,6 @@
 
 
 %lex
-%options case-insensitive
-
 numero  [0-9]+   
 
 
