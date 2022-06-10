@@ -14,7 +14,7 @@ const { AST } = require('./src/AST/AST');
 entero      ["-"|"+"]?[0-9]+\b
 decimal     ["-"|"+"]?[0-9]+("."[0-9]+)
 cadena      \"[^\"]*\"
-bool        "true"|"false"
+boolean        "true"|"false"
 id          ([a-zA-Z])[a-zA-Z0-9_ñÑ]*
 
 %%
@@ -40,7 +40,11 @@ id          ([a-zA-Z])[a-zA-Z0-9_ñÑ]*
                         lista.push("el lexema encontrado es :"+ yytext);       
                         return 'cadena';
                     }
-{id}            {
+{boolean}           {
+                        lista.push("el lexema encontrado es :"+ yytext);       
+                        return 'boolean';
+                    }
+{id}                {
                         lista.push("el lexema encontrado es :"+ yytext);       
                         return 'id';
                     }
@@ -358,22 +362,60 @@ Dcl_Variable
   : Tipo_Declaracion_Variable L_Declaraciones punto_coma { $$ = new AST({label: 'DECLARACION_VARIABLE', son: [$1,$2,$3], line: yylineno});  }
 ;
 
+L_Declaraciones 
+  : Declaracion_Id  { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
+  | Declaracion_Id_Tipo  { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
+  | Declaracion_Id_Tipo_Corchetes  { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
+  | Declaracion_Id_Expresion  { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
+  | Declaracion_Id_Tipo_Expresion  { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
+  | Declaracion_Id_Tipo_Corchetes_Expresion  { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
+;
+
+//let id : Tipo_Variable Lista_Corchetes = Expresion ;
+Declaracion_Id_Tipo_Corchetes_Expresion
+  : id dos_puntos Tipo_Variable Lista_Corchetes igual Expresion { $$ = new AST({label: 'Declaracion_Id_Tipo_Corchetes_Expresion', son: [$1,$2,$3,$4,$5,$6], line: yylineno}); }
+;
+
+//let id : Tipo_Variable = Expresion;
+Declaracion_Id_Tipo_Expresion
+  : id dos_puntos Tipo_Variable igual Expresion { $$ = new AST({label: 'Declaracion_Id_Tipo_Expresion', son: [$1,$2,$3,$4,$5], line: yylineno}); }
+;
+
+//let id = Expresion ;
+Declaracion_Id_Expresion
+  : id igual Expresion { $$ = new AST({label: 'Declaracion_Id_Expresion', son: [$1,$2,$3], line: yylineno}); }
+;
+
+//let id : Tipo_Variable ;
+Declaracion_Id_Tipo 
+  : id dos_puntos Tipo_Variable { $$ = new AST({label: 'Declaracion_Id_Tipo', son: [$1,$2,$3], line: yylineno}); }
+;
+
+//let id ;
+Declaracion_Id 
+  : id  { $$ = new AST({label: 'Declaracion_Id', son: [$1], line: yylineno}); }
+;
+
+//let id : TIPO_VARIABLE_NATIVA Lista_CORCHETES ;
+DEC_ID_TIPO_CORCHETES
+  : id dos_puntos TIPO_VARIABLE_NATIVA Lista_CORCHETES { $$ = new AST({label: 'DEC_ID_TIPO_CORCHETES', son: [$1,$2,$3,$4], line: yylineno}); }
+;
+
+Lista_CORCHETES
+  : Lista_CORCHETES cor_izq cor_der { $$ = new AST({label: 'Lista_CORCHETES', son: [...$1.son, '[]'], line: yylineno}); }
+  | cor_izq cor_der { $$ = new AST({label: 'Lista_CORCHETES', son: ['[]'], line: yylineno}); }
+;
+
 Tipo_Declaracion_Variable
   : let       { $$ = new AST({label: 'TIPO_DEC_VARIABLE', son: [$1], line: yylineno}); }
   | const     { $$ = new AST({label: 'TIPO_DEC_VARIABLE', son: [$1], line: yylineno}); }
 ;
 
-L_Declaraciones 
-  : L_Declaraciones coma DEC_ID  { $$ = new AST({label: 'Lista_Declaraciones', son: [...$1.son,$3], line: yylineno}); } //No utilice las comas
-  | L_Declaraciones coma DEC_ID_TIPO  { $$ = new AST({label: 'Lista_Declaraciones', son: [...$1.son,$3], line: yylineno}); }
-  | L_Declaraciones coma DEC_ID_TIPO_CORCHETES  { $$ = new AST({label: 'Lista_Declaraciones', son: [...$1.son,$3], line: yylineno}); }
-  | L_Declaraciones coma DEC_ID_EXP  { $$ = new AST({label: 'Lista_Declaraciones', son: [...$1.son,$3], line: yylineno}); }
-  | L_Declaraciones coma DEC_ID_TIPO_EXP  { $$ = new AST({label: 'Lista_Declaraciones', son: [...$1.son,$3], line: yylineno}); }
-  | L_Declaraciones coma DEC_ID_TIPO_CORCHETES_EXP  { $$ = new AST({label: 'Lista_Declaraciones', son: [...$1.son,$3], line: yylineno}); }
-  | DEC_ID  { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
-  | DEC_ID_TIPO  { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
-  | DEC_ID_TIPO_CORCHETES  { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
-  | DEC_ID_EXP  { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
-  | DEC_ID_TIPO_EXP  { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
-  | DEC_ID_TIPO_CORCHETES_EXP  { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
+Tipo_Variable
+  : cadena  { $$ = new AST({label: 'Tipo_Variable', son: [$1], line: yylineno}); }
+  | entero  { $$ = new AST({label: 'Tipo_Variable', son: [$1], line: yylineno}); }
+  | decimal  { $$ = new AST({label: 'Tipo_Variable', son: [$1], line: yylineno}); }
+  | boolean { $$ = new AST({label: 'Tipo_Variable', son: [$1], line: yylineno}); }
+  | void    { $$ = new AST({label: 'Tipo_Variable', son: [$1], line: yylineno}); }
+  | id      { $$ = new AST({label: 'Tipo_Variable', son: [new AST({label: 'ID', son: [$1], line: yylineno})], line: yylineno}); }
 ;

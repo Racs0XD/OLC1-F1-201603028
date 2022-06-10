@@ -10,9 +10,7 @@ Tutorial Jison ------------> https://ericknavarro.io/2019/07/21/17-Mi-primer-pro
 tokens.push(new Token('tk_char', yytext, yylloc.first_line, yylloc.first_column) ----> almacena los tokens yytext
 
 Listado de codigos
-		1. Compíla el Jison y lo mueve --> npm run jison
-		2. Inicia el servidor -----------> npm run dev
-		3. Conviertir Ts a Js 
-			Seleccionar el archivo Ts y precionar -----------> CTRL + SHIFT + B
-			seleccionar opción ------------------------------> tsc:watch - archivo.json
+		1. Compíla el Jison ------------> jison src/gramatica/gramatica.jison
+		2. Mueve el Jison --------------> "jison": "jison .src/gramatica/gramatica.jison && move gramatica gramatica.js ./src/gramatica
+		3. Inicia el servidor ----------> npm run dev
 		
