@@ -310,6 +310,7 @@ id          ([a-zA-Z])[a-zA-Z0-9_ñÑ]*
 %left 'mayor' 'menor' 'mayor_igual' 'menor_igual' 'igual_que' 'dif_que'
 %left 'mas' 'menos'
 %left 'por' 'div' 'mod' 'potencia'
+%left 'umenos'
 %right 'not'
 
 
@@ -332,90 +333,133 @@ IS
 ;
 
 I
-    :   Incremento_Decremento { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }    
-    |   Dcl_Variable { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
-    |   Dcl_Const { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
-    |   Asignacion { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
-    |   If { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
-    |   Switch { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
-    |   For { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
-    |   While { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
-    |   Do_While { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }    
-    |   Break { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
-    |   Continue { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }    
-    |   Dcl_Metodo { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
-    |   Dcl_Funcion { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }    
-    |   Llamada_Metodo { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
-    |   Llamada_Funcion { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
-    |   Return { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
-    |   Print { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
-    |   Println { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
-    |   Typeof { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    :   Incremento_Decremento   { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }    
+    |   Dcl_Variable            { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   Dcl_Const               { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   Asignacion              { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   If                      { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   Switch                  { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   For                     { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   While                   { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   Do_While                { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }    
+    |   Break                   { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   Continue                { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }    
+    |   Dcl_Metodo              { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   Dcl_Funcion             { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }    
+    |   Llamada_Metodo          { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   Llamada_Funcion         { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   Return                  { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   Print                   { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   Println                 { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   Typeof                  { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
 ;
 
 Incremento_Decremento
-  : id incremento punto_coma { $$ = new AST({label: 'Incremento_Decremento', son: [$1,$2,$3], line: yylineno}); }
-  | id decremento punto_coma { $$ = new AST({label: 'Incremento_Decremento', son: [$1,$2,$3], line: yylineno}); }
+    : id incremento punto_coma { $$ = new AST({label: 'Incremento_Decremento', son: [$1,$2,$3], line: yylineno}); }
+    | id decremento punto_coma { $$ = new AST({label: 'Incremento_Decremento', son: [$1,$2,$3], line: yylineno}); }
+;
+
+Expresion
+    //Expresiones aritméticas
+    : menos Expresion %prec umenos      { $$ = new AST({label: 'Expresion', son: [$1, $2], line: yylineno}); }
+    | Expresion mas Expresion           { $$ = new AST({label: 'Expresion', son: [$1, $2, $3], line: yylineno}); }
+    | Expresion menos Expresion         { $$ = new AST({label: 'Expresion', son: [$1, $2, $3], line: yylineno}); }
+    | Expresion por Expresion           { $$ = new AST({label: 'Expresion', son: [$1, $2, $3], line: yylineno}); }
+    | Expresion div Expresion           { $$ = new AST({label: 'Expresion', son: [$1, $2, $3], line: yylineno}); }
+    | Expresion mod Expresion           { $$ = new AST({label: 'Expresion', son: [$1, $2, $3], line: yylineno}); }
+    | Expresion potencia Expresion      { $$ = new AST({label: 'Expresion', son: [$1, $2, $3], line: yylineno}); }
+    | id incremento                     { $$ = new AST({label: 'Expresion', son: [$1, $2], line: yylineno}); }
+    | id decremento                     { $$ = new AST({label: 'Expresion', son: [$1, $2], line: yylineno}); }
+    | par_izq Expresion par_der         { $$ = new AST({label: 'Expresion', son: [$1, $2, $3], line: yylineno}); }
+    //Expresiones relacionales
+    | Expresion mayor Expresion         { $$ = new AST({label: 'Expresion', son: [$1, $2, $3], line: yylineno}); }
+    | Expresion menor Expresion         { $$ = new AST({label: 'Expresion', son: [$1, $2, $3], line: yylineno}); }
+    | Expresion mayor_igual Expresion   { $$ = new AST({label: 'Expresion', son: [$1, $2, $3], line: yylineno}); }
+    | Expresion menor_igual Expresion   { $$ = new AST({label: 'Expresion', son: [$1, $2, $3], line: yylineno}); }
+    | Expresion igual_que Expresion     { $$ = new AST({label: 'Expresion', son: [$1, $2, $3], line: yylineno}); }
+    | Expresion dif_que Expresion       { $$ = new AST({label: 'Expresion', son: [$1, $2, $3], line: yylineno}); }
+    //Expresiones Lógicas
+    | Expresion or Expresion            { $$ = new AST({label: 'Expresion', son: [$1, $2, $3], line: yylineno}); }
+    | Expresion and Expresion           { $$ = new AST({label: 'Expresion', son: [$1, $2, $3], line: yylineno}); }
+    | Expresion xor Expresion           { $$ = new AST({label: 'Expresion', son: [$1, $2, $3], line: yylineno}); }
+    | not Expresion                     { $$ = new AST({label: 'Expresion', son: [$1, $2], line: yylineno}); }
+    //Tipo Valores 
+    | entero                            { $$ = new AST({label: 'Expresion', son: [new AST({label: 'Entero', son: [$1], line: yylineno})], line: yylineno}); }
+    | decimal                           { $$ = new AST({label: 'Expresion', son: [new AST({label: 'Decimal', son: [$1], line: yylineno})], line: yylineno}); }
+    | string                            { $$ = new AST({label: 'Expresion', son: [new AST({label: 'String', son: [$1], line: yylineno})], line: yylineno}); }
+    | id                                { $$ = new AST({label: 'Expresion', son: [new AST({label: 'Id', son: [$1], line: yylineno})], line: yylineno}); }
+    | true                              { $$ = new AST({label: 'Expresion', son: [new AST({label: 'Boolean', son: [$1], line: yylineno})], line: yylineno}); }
+    | false                             { $$ = new AST({label: 'Expresion', son: [new AST({label: 'Boolean', son: [$1], line: yylineno})], line: yylineno}); }
+    | null                              { $$ = new AST({label: 'Expresion', son: [new AST({label: 'Null', son: [$1], line: yylineno})], line: yylineno}); }
+    //Funciones y Metodos
+    | Llamada_Funcion_Expresion         { $$ = new AST({label: 'Expresion', son: [$1], line: yylineno}); }    
+    | Llamada_Metodo_Expresion         { $$ = new AST({label: 'Expresion', son: [$1], line: yylineno}); }
 ;
 
 Dcl_Variable
-  : Tipo_Declaracion_Variable L_Declaraciones punto_coma { $$ = new AST({label: 'DECLARACION_VARIABLE', son: [$1,$2,$3], line: yylineno});  }
+    : Tipo_Declaracion_Variable L_Declaraciones punto_coma { $$ = new AST({label: 'DECLARACION_VARIABLE', son: [$1,$2,$3], line: yylineno});  }
 ;
 
 L_Declaraciones 
-  : Declaracion_Id  { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
-  | Declaracion_Id_Tipo  { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
-  | Declaracion_Id_Tipo_Corchetes  { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
-  | Declaracion_Id_Expresion  { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
-  | Declaracion_Id_Tipo_Expresion  { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
-  | Declaracion_Id_Tipo_Corchetes_Expresion  { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
-;
-
-//let id : Tipo_Variable Lista_Corchetes = Expresion ;
-Declaracion_Id_Tipo_Corchetes_Expresion
-  : id dos_puntos Tipo_Variable Lista_Corchetes igual Expresion { $$ = new AST({label: 'Declaracion_Id_Tipo_Corchetes_Expresion', son: [$1,$2,$3,$4,$5,$6], line: yylineno}); }
-;
-
-//let id : Tipo_Variable = Expresion;
-Declaracion_Id_Tipo_Expresion
-  : id dos_puntos Tipo_Variable igual Expresion { $$ = new AST({label: 'Declaracion_Id_Tipo_Expresion', son: [$1,$2,$3,$4,$5], line: yylineno}); }
-;
-
-//let id = Expresion ;
-Declaracion_Id_Expresion
-  : id igual Expresion { $$ = new AST({label: 'Declaracion_Id_Expresion', son: [$1,$2,$3], line: yylineno}); }
-;
-
-//let id : Tipo_Variable ;
-Declaracion_Id_Tipo 
-  : id dos_puntos Tipo_Variable { $$ = new AST({label: 'Declaracion_Id_Tipo', son: [$1,$2,$3], line: yylineno}); }
+    : Declaracion_Id                            { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
+    | Declaracion_Id_Tipo                       { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
+    | Declaracion_Id_Tipo_Corchetes             { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
+    | Declaracion_Id_Expresion                  { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
+    | Declaracion_Id_Tipo_Expresion             { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
+    | Declaracion_Id_Tipo_Corchetes_Expresion   { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
 ;
 
 //let id ;
 Declaracion_Id 
-  : id  { $$ = new AST({label: 'Declaracion_Id', son: [$1], line: yylineno}); }
+    : id                                                            { $$ = new AST({label: 'Declaracion_Id', son: [$1], line: yylineno}); }
 ;
 
-//let id : TIPO_VARIABLE_NATIVA Lista_CORCHETES ;
+//let id : Tipo_Variable ;
+Declaracion_Id_Tipo 
+    : id dos_puntos Tipo_Variable                                   { $$ = new AST({label: 'Declaracion_Id_Tipo', son: [$1,$2,$3], line: yylineno}); }
+;
+
+//let id : Tipo_Variable Lista_Corchetes ;
+Declaracion_Id_Tipo_Corchetes
+    : id dos_puntos Tipo_Variable Lista_Corchetes                   { $$ = new ATS({label: 'Declaracion_Id_Tipo_Corchetes', son: [$1,$2,$3,$4], line: yylineno}); }
+;
+
+//let id : Tipo_Variable Lista_Corchetes = Expresion ;
+Declaracion_Id_Tipo_Corchetes_Expresion
+    : id dos_puntos Tipo_Variable Lista_Corchetes igual Expresion   { $$ = new AST({label: 'Declaracion_Id_Tipo_Corchetes_Expresion', son: [$1,$2,$3,$4,$5,$6], line: yylineno}); }
+;
+
+//let id : Tipo_Variable = Expresion;
+Declaracion_Id_Tipo_Expresion
+    : id dos_puntos Tipo_Variable igual Expresion                   { $$ = new AST({label: 'Declaracion_Id_Tipo_Expresion', son: [$1,$2,$3,$4,$5], line: yylineno}); }
+;
+
+//let id = Expresion ;
+Declaracion_Id_Expresion
+     : id igual Expresion                                           { $$ = new AST({label: 'Declaracion_Id_Expresion', son: [$1,$2,$3], line: yylineno}); }
+;
+
+//let id : TIPO_VARIABLE_NATIVA Lista_Corchetes ;
 DEC_ID_TIPO_CORCHETES
-  : id dos_puntos TIPO_VARIABLE_NATIVA Lista_CORCHETES { $$ = new AST({label: 'DEC_ID_TIPO_CORCHETES', son: [$1,$2,$3,$4], line: yylineno}); }
+    : id dos_puntos TIPO_VARIABLE_NATIVA Lista_Corchetes            { $$ = new AST({label: 'DEC_ID_TIPO_CORCHETES', son: [$1,$2,$3,$4], line: yylineno}); }
 ;
 
-Lista_CORCHETES
-  : Lista_CORCHETES cor_izq cor_der { $$ = new AST({label: 'Lista_CORCHETES', son: [...$1.son, '[]'], line: yylineno}); }
-  | cor_izq cor_der { $$ = new AST({label: 'Lista_CORCHETES', son: ['[]'], line: yylineno}); }
+Lista_Corchetes
+    : Lista_Corchetes cor_izq cor_der   { $$ = new AST({label: 'Lista_Corchetes', son: [...$1.son, '[]'], line: yylineno}); }
+    | cor_izq cor_der                   { $$ = new AST({label: 'Lista_Corchetes', son: ['[]'], line: yylineno}); }
 ;
 
 Tipo_Declaracion_Variable
-  : let       { $$ = new AST({label: 'TIPO_DEC_VARIABLE', son: [$1], line: yylineno}); }
-  | const     { $$ = new AST({label: 'TIPO_DEC_VARIABLE', son: [$1], line: yylineno}); }
+    : let       { $$ = new AST({label: 'TIPO_DEC_VARIABLE', son: [$1], line: yylineno}); }
+    | const     { $$ = new AST({label: 'TIPO_DEC_VARIABLE', son: [$1], line: yylineno}); }
 ;
 
 Tipo_Variable
-  : cadena  { $$ = new AST({label: 'Tipo_Variable', son: [$1], line: yylineno}); }
-  | entero  { $$ = new AST({label: 'Tipo_Variable', son: [$1], line: yylineno}); }
-  | decimal  { $$ = new AST({label: 'Tipo_Variable', son: [$1], line: yylineno}); }
-  | boolean { $$ = new AST({label: 'Tipo_Variable', son: [$1], line: yylineno}); }
-  | void    { $$ = new AST({label: 'Tipo_Variable', son: [$1], line: yylineno}); }
-  | id      { $$ = new AST({label: 'Tipo_Variable', son: [new AST({label: 'ID', son: [$1], line: yylineno})], line: yylineno}); }
+    : cadena    { $$ = new AST({label: 'Tipo_Variable', son: [$1], line: yylineno}); }
+    | entero    { $$ = new AST({label: 'Tipo_Variable', son: [$1], line: yylineno}); }
+    | decimal   { $$ = new AST({label: 'Tipo_Variable', son: [$1], line: yylineno}); }
+    | boolean   { $$ = new AST({label: 'Tipo_Variable', son: [$1], line: yylineno}); }
+    | void      { $$ = new AST({label: 'Tipo_Variable', son: [$1], line: yylineno}); }
+    | id        { $$ = new AST({label: 'Tipo_Variable', son: [new AST({label: 'ID', son: [$1], line: yylineno})], line: yylineno}); }
 ;
+
