@@ -292,7 +292,7 @@ id          ([a-zA-Z])[a-zA-Z0-9_ñÑ]*
 <<EOF>>             return 'EOF'; 
 
 .                   {
-                        const er = new error_1.error('Error Lexico: ' + yytext + ' no es valido, en la linea: ' + yylloc.first_line + ', en la columna: ' + (yylloc.first_column+1)); 
+                        const er = new error_1.error('Error Lexico: ' + yytext + ' no es valido, en la line: ' + yylloc.first_line + ', en la columna: ' + (yylloc.first_column+1)); 
                         errores_1.Errores.getInstance().push(er);
                     }
 
@@ -323,6 +323,28 @@ INIT
     ;
 
 IS
-    : IS I  {$$ = new AST({label: 'Instrucciones', son: [$1.son, $2.son], line: yylineno});}
-    | I     {$$ = new AST({label: 'Instrucciones', son: [$1.son], line: yylineno});}
+    :   IS I  {$$ = new AST({label: 'Instrucciones', son: [$1.son, $2.son], line: yylineno});}
+    |   I     {$$ = new AST({label: 'Instrucciones', son: [$1.son], line: yylineno});}
+;
+
+I
+    :   Incremento_Decremento { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }    
+    |   Dcl_Variable { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   Dcl_Const { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   Asignacion { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   If { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   Switch { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   For { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   While { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   Do_While { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }    
+    |   Break { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   Continue { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }    
+    |   Dcl_Metodo { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   Dcl_Funcion { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }    
+    |   Llamada_Metodo { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   Llamada_Funcion { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   Return { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   Print { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   Println { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
+    |   Typeof { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
 ;
