@@ -348,3 +348,32 @@ I
     |   Println { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
     |   Typeof { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
 ;
+
+Incremento_Decremento
+  : id incremento punto_coma { $$ = new AST({label: 'Incremento_Decremento', son: [$1,$2,$3], line: yylineno}); }
+  | id decremento punto_coma { $$ = new AST({label: 'Incremento_Decremento', son: [$1,$2,$3], line: yylineno}); }
+;
+
+Dcl_Variable
+  : Tipo_Declaracion_Variable L_Declaraciones punto_coma { $$ = new AST({label: 'DECLARACION_VARIABLE', son: [$1,$2,$3], line: yylineno});  }
+;
+
+Tipo_Declaracion_Variable
+  : let       { $$ = new AST({label: 'TIPO_DEC_VARIABLE', son: [$1], line: yylineno}); }
+  | const     { $$ = new AST({label: 'TIPO_DEC_VARIABLE', son: [$1], line: yylineno}); }
+;
+
+L_Declaraciones 
+  : L_Declaraciones coma DEC_ID  { $$ = new AST({label: 'Lista_Declaraciones', son: [...$1.son,$3], line: yylineno}); } //No utilice las comas
+  | L_Declaraciones coma DEC_ID_TIPO  { $$ = new AST({label: 'Lista_Declaraciones', son: [...$1.son,$3], line: yylineno}); }
+  | L_Declaraciones coma DEC_ID_TIPO_CORCHETES  { $$ = new AST({label: 'Lista_Declaraciones', son: [...$1.son,$3], line: yylineno}); }
+  | L_Declaraciones coma DEC_ID_EXP  { $$ = new AST({label: 'Lista_Declaraciones', son: [...$1.son,$3], line: yylineno}); }
+  | L_Declaraciones coma DEC_ID_TIPO_EXP  { $$ = new AST({label: 'Lista_Declaraciones', son: [...$1.son,$3], line: yylineno}); }
+  | L_Declaraciones coma DEC_ID_TIPO_CORCHETES_EXP  { $$ = new AST({label: 'Lista_Declaraciones', son: [...$1.son,$3], line: yylineno}); }
+  | DEC_ID  { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
+  | DEC_ID_TIPO  { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
+  | DEC_ID_TIPO_CORCHETES  { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
+  | DEC_ID_EXP  { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
+  | DEC_ID_TIPO_EXP  { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
+  | DEC_ID_TIPO_CORCHETES_EXP  { $$ = new AST({label: 'Lista_Declaraciones', son: [$1], line: yylineno}); }
+;
