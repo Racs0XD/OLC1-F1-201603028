@@ -1,8 +1,12 @@
 const { Router } = require('express');
 const router = Router();
 
+const tokens = require('../tokens.json');
+
 router.get('/',(req, res) => {
-    res.send('tokens');
+    res.json(tokens);
 })
+
+
 
 module.exports = router;

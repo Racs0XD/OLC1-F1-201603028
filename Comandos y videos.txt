@@ -1,0 +1,16 @@
+
+Tutorial JS en 15 minutos -> https://www.youtube.com/watch?v=Q9fwkpxr3Dw
+
+Tutorial Angular Aux ------> https://drive.google.com/file/d/1CsGhkvie483TyQTg9D73bH6mbSt9F5ax/view?usp=sharing
+
+Tutorial Jison ------------> https://ericknavarro.io/2019/07/21/17-Mi-primer-proyecto-utilizando-Jison-Linux/
+
+
+
+tokens.push(new Token('tk_char', yytext, yylloc.first_line, yylloc.first_column) ----> almacena los tokens yytext
+
+Listado de codigos
+		1. Compíla el Jison ------------> jison src/gramatica.jison
+		2. Mueve el Jison --------------> jison src/gramatica/gramatica.jison
+		3. Inicia el servidor ----------> npm run dev
+		
