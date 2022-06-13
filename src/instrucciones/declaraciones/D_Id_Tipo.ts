@@ -1,4 +1,5 @@
 import { Instruccion } from "../../abstract/instrucciones";
+import { Environment } from "../../symbols/enviroment";
 
 /*  para una declaración se necesita el tipo de dato, el nombre de la variable y su expresión */
 export class D_Id_Tipo extends Instruccion{
@@ -12,7 +13,7 @@ export class D_Id_Tipo extends Instruccion{
     ) {
         super(line,column);
     }
-        public execute() {
+        public execute(Env: Environment) {
             //codigo analisis semantico
         }
 }

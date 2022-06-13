@@ -12,7 +12,7 @@ class D_Id_Exp extends instrucciones_1.Instruccion {
         this.identificador = identificador;
         this.expresion = expresion;
     }
-    execute() {
+    execute(Env) {
         //codigo analisis semantico
     }
 }

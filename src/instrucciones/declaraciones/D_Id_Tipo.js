@@ -12,7 +12,7 @@ class D_Id_Tipo extends instrucciones_1.Instruccion {
         this.identificador = identificador;
         this.tipo = tipo;
     }
-    execute() {
+    execute(Env) {
         //codigo analisis semantico
     }
 }

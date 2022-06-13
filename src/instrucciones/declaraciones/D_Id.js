@@ -11,7 +11,7 @@ class D_Id extends instrucciones_1.Instruccion {
         this.tipo_declaracion = tipo_declaracion;
         this.identificador = identificador;
     }
-    execute() {
+    execute(Env) {
         //codigo analisis semantico
     }
 }

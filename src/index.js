@@ -23,4 +23,3 @@ app.use('/api/errores',require('./routes/errores'));
 app.listen(app.get('port'), () => {
     console.log(`Server on port ${app.get('port')}`);
 });
-

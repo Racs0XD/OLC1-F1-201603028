@@ -11,13 +11,13 @@ class Arithmetic extends express_1.Expression {
         this.rigth = rigth;
         this.type = type;
     }
-    execute() {
+    execute(Env) {
         let result = {
             value: null,
             type: type_1.Type.error
         };
-        const nodoIzq = this.left.execute();
-        const nodoDer = this.rigth.execute();
+        const nodoIzq = this.left.execute(Env);
+        const nodoDer = this.rigth.execute(Env);
         if (this.type == aritmeticOptions_1.ArithmeticOptions.MAS) {
             //Condicional Int + Int
             if (nodoIzq.type == type_1.Type.INT && nodoDer.type == type_1.Type.INT) {

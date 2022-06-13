@@ -13,11 +13,11 @@ class D_Id_Tipo_Exp extends instrucciones_1.Instruccion {
         this.tipo = tipo;
         this.expresion = expresion;
     }
-    execute() {
+    execute(Env) {
         //codigo analisis semantico
         console.log("Declarando nueva variable: " + this.identificador);
         console.log(this);
-        const x = this.expresion.execute();
+        const x = this.expresion.execute(Env);
     }
 }
 exports.D_Id_Tipo_Exp = D_Id_Tipo_Exp;
