@@ -15,4 +15,10 @@ Listado de codigos
 		3. Conviertir Ts a Js 
 			Seleccionar el archivo Ts y precionar -----------> CTRL + SHIFT + B
 			seleccionar opción ------------------------------> tsc:watch - archivo.json
-		
+			
+Carpetas
+	abstract/instrucciones.ts será la plantilla que hará que todas las clases tengan linea,columna y el metodo ejecutar
+	
+Declaraciones
+	Para las declaraciones es necesaria la carpeta instrucciones/declaraciones y luego grear los archivos de declaraiones necesarios
+	para reconocer las variables es importante crear un archivo literal.ts en el que se declaran los tipos de variables y luego se invoca en la gramataica si se les requiere

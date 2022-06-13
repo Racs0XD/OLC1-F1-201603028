@@ -1,5 +1,7 @@
 %{
 const { AST } = require('../AST/AST');
+const er = require("../AST/error");
+const err = require("../AST/errores");
 
 const { D_Id } = require("../instrucciones/declaraciones/D_Id");
 const { D_Id_Exp } = require("../instrucciones/declaraciones/D_Id_Exp");
@@ -30,22 +32,7 @@ id          ([a-zA-Z])[a-zA-Z0-9_ñÑ]*
 \s+											// espacios en blanco
 "//".*										// comentario simple
 [/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]			// comentario multiple líneas
-//-------------------------------------------------------------------
-//----------------------- Variables constantes ----------------------
-//-------------------------------------------------------------------
 
-"const"             {
-                        console.log("reconoci palabra reservada: "+yytext);
-                        return 'const';
-                    }
-"var"             {
-                        console.log("reconoci palabra reservada: "+yytext);
-                        return 'var';
-                    }
-"let"             {
-                        console.log("reconoci palabra reservada: "+yytext);
-                        return 'let';
-                    }    
 
 //------------------------------------------------------------------
 //------------------------------- Tipos ----------------------------
@@ -53,23 +40,27 @@ id          ([a-zA-Z])[a-zA-Z0-9_ñÑ]*
 
 {int}               {
                         console.log("el lexema encontrado es :"+ yytext);       
-                        return 't_int';
+                        return 'int';
                     }
 {double}            {
                         console.log("el lexema encontrado es :"+ yytext);       
-                        return 't_double';
+                        return 'double';
                     }
 {char}            {
                         console.log("el lexema encontrado es :"+ yytext);       
-                        return 't_char';
+                        return 'char';
                     }
 {string}            {
                         console.log("el lexema encontrado es :"+ yytext);       
-                        return 't_string';
+                        return 'string';
                     }
 {boolean}           {
                         console.log("el lexema encontrado es :"+ yytext);       
-                        return 't_boolean';
+                        return 'boolean';
+                    }
+{id}                {
+                        console.log("el lexema encontrado es :"+ yytext);       
+                        return 'id';
                     }
 
 //------------------------------------------------------------------
@@ -217,7 +208,15 @@ id          ([a-zA-Z])[a-zA-Z0-9_ñÑ]*
                         console.log("reconoci asignacion: "+yytext);
                         return 'igual';
                     }
-                
+
+//-------------------------------------------------------------------
+//----------------------- Variables constantes ----------------------
+//-------------------------------------------------------------------
+
+"const"             {
+                        console.log("reconoci palabra reservada: "+yytext);
+                        return 'const';
+                    }
 
 //-------------------------------------------------------------------
 //---------------------- Sentencias de control ----------------------
@@ -243,10 +242,7 @@ id          ([a-zA-Z])[a-zA-Z0-9_ñÑ]*
                         console.log("reconoci palabra reservada: "+yytext);
                         return 'string';
                     }
-{id}                {
-                        console.log("el lexema encontrado es :"+ yytext);       
-                        return 'id';
-                    }
+
 "if"                {
                         console.log("reconoci palabra reservada: "+yytext);
                         return 'if';
@@ -314,6 +310,8 @@ id          ([a-zA-Z])[a-zA-Z0-9_ñÑ]*
 <<EOF>>             return 'EOF'; 
 
 .                   {
+                        const e = new er.error('Error Lexico: ' + yytext + ' no es valido, en la line: ' + yylloc.first_line + ', en la columna: ' + (yylloc.first_column+1)); 
+                        er.Errores.getInstance().push(e);
                         console.error('Este es un error léxico: ' + yytext + ', en la linea: ' + yylloc.first_line + ', en la columna: ' + (yylloc.first_column+1));
                     }
 
@@ -346,13 +344,12 @@ INIT
     ;
 
 Instrucciones
-    :   Instrucciones Instruccion   { $1.push($2); $$ = $1;}
+    :   Instrucciones Instruccion   { $1.push($2); $$ = $2;}
     |   Instruccion                 {$$ = [$1];}
 ;
 
 Instruccion
-    :   L_Declaraciones         { $$ = $1; }
-    |   Expresion_Aritmetica    { $$ = $1;}
+    :    L_Declaraciones         { $$ = $1; }
     /*|    Incremento_Decremento  { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }    
     |   Dcl_Const               { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
     |   Asignacion              { $$ = new AST({label: 'Instruccion', son: [$1], line: yylineno}); }
@@ -379,58 +376,23 @@ Incremento_Decremento
     | id decremento punto_coma { $$ = new AST({label: 'Incremento_Decremento', son: [$1,$2,$3], line: yylineno}); }
 ;
 */
-
-L_Declaraciones
-//let id : Tipo_Dato_Declaracion = Expresion; 
-    : Tipo_Declaracion_Variable id dos_puntos Tipo_Dato_Declaracion igual Declaracion_Exp punto_coma  { $$ = new D_Id_Tipo_Exp($1,$2,$4,$6,@1.first_line,@1.first_column);  }
-//let id = Expresion ;
-    | Tipo_Declaracion_Variable id igual Declaracion_Exp punto_coma                                   { $$ = new D_Id_Exp($1,$2,$4,@1.first_line,@1.first_column);  } 
-//let id ;
-    | Tipo_Declaracion_Variable id punto_coma                                                   { $$ = new D_Id($1,$2,@1.first_line,@1.first_column);  }
-//let id : Tipo_Dato_Declaracion ;
-    | Tipo_Declaracion_Variable id dos_puntos Tipo_Dato_Declaracion punto_coma                  { $$ = new D_Id_Tipo($1,$2,$4,@1.first_line,@1.first_column);  }
-;
-
-Tipo_Declaracion_Variable
-    : let     { $$ = $1; }  
-    | const   { $$ = $1; }
-    | var     { $$ = $1; }
-;
-
-Tipo_Dato_Declaracion
-    : int       { $$ = $1;}
-    | double    { $$ = $1;}
-    | char      { $$ = $1;}
-    | string    { $$ = $1;}
-    | boolean   { $$ = $1;}
-;
-
-Declaracion_Exp
-    : t_int       { $$ = $1;}
-    | t_double    { $$ = $1;}
-    | t_char      { $$ = $1;}
-    | t_string    { $$ = $1;}
-    | t_boolean   { $$ = $1;}
-;
-
 Expresion_Aritmetica
     //Expresiones aritméticas
-    : Expresion_Aritmetica mas Expresion_Aritmetica             { $$ = new Arithmetic($1,$3,ArithmeticOptions.MAS,@1.first_line,@1.first_column); }
-    | Expresion_Aritmetica menos Expresion_Aritmetica           { $$ = new Arithmetic($1,$3,ArithmeticOptions.MENOS,@1.first_line,@1.first_column); }
-    | Expresion_Aritmetica por Expresion_Aritmetica             { $$ = new Arithmetic($1,$3,ArithmeticOptions.MULT,@1.first_line,@1.first_column); }
-    | Expresion_Aritmetica div Expresion_Aritmetica             { $$ = new Arithmetic($1,$3,ArithmeticOptions.DIV,@1.first_line,@1.first_column); }
-    | Expresion_Aritmetica potencia Expresion_Aritmetica        { $$ = new Arithmetic($1,$3,ArithmeticOptions.POT,@1.first_line,@1.first_column); }
-    | Expresion_Aritmetica mod Expresion_Aritmetica             { $$ = new Arithmetic($1,$3,ArithmeticOptions.MOD,@1.first_line,@1.first_column); }
-    | Entrada_Exp_Aritmetica                                    { $$ = $1}
+    : Expresion_Aritmetica mas Expresion_Aritmetica           { $ = new Arithmetic($1,$3,ArithmeticOptions.MAS,@1.first_line,@1.first_column); }
+    | Expresion_Aritmetica menos Expresion_Aritmetica         { $ = new Arithmetic($1,$3,ArithmeticOptions.MENOS,@1.first_line,@1.first_column); }
+    | Expresion_Aritmetica por Expresion_Aritmetica           { $ = new Arithmetic($1,$3,ArithmeticOptions.MULT,@1.first_line,@1.first_column); }
+    | Expresion_Aritmetica div Expresion_Aritmetica           { $ = new Arithmetic($1,$3,ArithmeticOptions.DIV,@1.first_line,@1.first_column); }
+    | Expresion_Aritmetica potencia Expresion_Aritmetica      { $ = new Arithmetic($1,$3,ArithmeticOptions.POT,@1.first_line,@1.first_column); }
+    | Expresion_Aritmetica mod Expresion_Aritmetica           { $ = new Arithmetic($1,$3,ArithmeticOptions.MOD,@1.first_line,@1.first_column); }
 ;
 
 Entrada_Exp_Aritmetica
-    : Exp_Int       { $$ = new Literal($1, Type.INT,@1.first_line,@1.first_column);}
-    | Exp_Double    { $$ = new Literal($1, Type.DOUBLE,@1.first_line,@1.first_column);}
-    | Exp_Char      { $$ = new Literal($1, Type.CHAR,@1.first_line,@1.first_column);}
-    | Exp_String    { $$ = new Literal($1, Type.STRING,@1.first_line,@1.first_column);}
-    | Exp_Boolean   { $$ = new Literal($1, Type.BOOLEAN,@1.first_line,@1.first_column);}
-;
+    : Exp_Int       { $$ = Literal($1, Type.INT,@1.first_line,@1.first_column);}
+    | Exp_Double    { $$ = Literal($1, Type.DOUBLE,@1.first_line,@1.first_column);}s
+    | Exp_Char      { $$ = Literal($1, Type.CHAR,@1.first_line,@1.first_column);}
+    | Exp_String    { $$ = Literal($1, Type.STRING,@1.first_line,@1.first_column);}
+    | Exp_Boolean   { $$ = Literal($1, Type.BOOLEAN,@1.first_line,@1.first_column);}
+
 
 /*
 Expresion_Compoarativa
@@ -464,6 +426,31 @@ Expresion_Compoarativa
     | Llamada_Metodo_Expresion         { $$ = new AST({label: 'Expresion', son: [$1], line: yylineno}); }
 ;
 */
+
+Tipo_Declaracion_Variable
+    : let       { }
+    | const     { }
+    | var       { }
+;
+
+L_Declaraciones 
+//let id ;
+    : Tipo_Declaracion_Variable id punto_coma                                                   { $$ = new D_Id($2,@1.first_line,@1.first_column);  }
+//let id : Tipo_Dato_Declaracion ;
+    | Tipo_Declaracion_Variable id dos_puntos Tipo_Dato_Declaracion punto_coma                  { $$ = new D_Id_Tipo($2,$4,@1.first_line,@1.first_column);  }
+//let id = Expresion ;
+    | Tipo_Declaracion_Variable id igual Expresion_Aritmetica punto_coma                                   { $$ = new D_Id_Exp($2,$4,@1.first_line,@1.first_column);  }
+//let id : Tipo_Dato_Declaracion = Expresion; 
+    | Tipo_Declaracion_Variable id dos_puntos Tipo_Dato_Declaracion igual Expresion_Aritmetica punto_coma  { $$ = new D_Id_Tipo_Exp($2,$4,$6,@1.first_line,@1.first_column);  }
+;
+
+
+Tipo_Dato_Declaracion
+    : string    { $$ = $1; }
+    | int       { $$ = $1; }
+    | double    { $$ = $1; }
+    | boolean   { $$ = $1; }
+;
 
 /*
 Tipo_Dato

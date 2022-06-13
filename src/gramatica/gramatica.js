@@ -72,12 +72,12 @@
   }
 */
 var gramatica = (function(){
-var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,6],$V1=[1,7],$V2=[1,8],$V3=[1,9],$V4=[1,10],$V5=[1,11],$V6=[1,12],$V7=[1,13],$V8=[1,14],$V9=[1,15],$Va=[1,16],$Vb=[1,17],$Vc=[1,18],$Vd=[1,19],$Ve=[1,20],$Vf=[1,21],$Vg=[1,22],$Vh=[1,23],$Vi=[1,25],$Vj=[1,26],$Vk=[5,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,49,50],$Vl=[1,38],$Vm=[26,35],$Vn=[28,32],$Vo=[28,32,41,42];
+var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,8],$V1=[1,9],$V2=[1,10],$V3=[1,11],$V4=[1,12],$V5=[1,13],$V6=[1,14],$V7=[1,15],$V8=[5,16,17,18,36,37,38,39,40],$V9=[1,20],$Va=[1,21],$Vb=[1,22],$Vc=[1,23],$Vd=[5,16,17,18,29,30,31,32,33,34,36,37,38,39,40],$Ve=[5,16,17,18,29,30,36,37,38,39,40],$Vf=[1,41],$Vg=[1,42],$Vh=[1,43],$Vi=[1,44],$Vj=[1,45],$Vk=[13,15];
 var parser = {trace: function trace () { },
 yy: {},
-symbols_: {"error":2,"INIT":3,"IS":4,"EOF":5,"I":6,"Incremento_Decremento":7,"Dcl_Variable":8,"Dcl_Const":9,"Asignacion":10,"If":11,"Switch":12,"For":13,"While":14,"Do_While":15,"Break":16,"Continue":17,"Dcl_Metodo":18,"Dcl_Funcion":19,"Llamada_Metodo":20,"Llamada_Funcion":21,"Return":22,"Print":23,"Println":24,"Typeof":25,"id":26,"incremento":27,"punto_coma":28,"decremento":29,"Tipo_Declaracion_Variable":30,"L_Declaraciones":31,"coma":32,"Declaracion_Id":33,"Declaracion_Id_Tipo":34,"Declaracion_Id_Tipo_Corchetes":35,"Declaracion_Id_Expresion":36,"Declaracion_Id_Tipo_Expresion":37,"Declaracion_Id_Tipo_Corchetes_Expresion":38,"dos_puntos":39,"Tipo_Variable":40,"LISTA_Corchetes":41,"igual":42,"EXP":43,"DEC_ID_TIPO_CORCHETES":44,"TIPO_VARIABLE_NATIVA":45,"LISTA_CORCHETES":46,"cor_izq":47,"cor_der":48,"let":49,"const":50,"cadena":51,"entero":52,"decimal":53,"boolean":54,"void":55,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"EOF",9:"Dcl_Const",10:"Asignacion",11:"If",12:"Switch",13:"For",14:"While",15:"Do_While",16:"Break",17:"Continue",18:"Dcl_Metodo",19:"Dcl_Funcion",20:"Llamada_Metodo",21:"Llamada_Funcion",22:"Return",23:"Print",24:"Println",25:"Typeof",26:"id",27:"incremento",28:"punto_coma",29:"decremento",32:"coma",35:"Declaracion_Id_Tipo_Corchetes",39:"dos_puntos",41:"LISTA_Corchetes",42:"igual",43:"EXP",45:"TIPO_VARIABLE_NATIVA",47:"cor_izq",48:"cor_der",49:"let",50:"const",51:"cadena",52:"entero",53:"decimal",54:"boolean",55:"void"},
-productions_: [0,[3,2],[4,2],[4,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[6,1],[7,3],[7,3],[8,3],[31,3],[31,3],[31,3],[31,3],[31,3],[31,3],[31,1],[31,1],[31,1],[31,1],[31,1],[31,1],[38,6],[37,5],[36,3],[34,3],[33,1],[44,4],[46,3],[46,2],[30,1],[30,1],[40,1],[40,1],[40,1],[40,1],[40,1],[40,1]],
+symbols_: {"error":2,"INIT":3,"Instrucciones":4,"EOF":5,"Instruccion":6,"L_Declaraciones":7,"Expresion_Aritmetica":8,"Tipo_Declaracion_Variable":9,"id":10,"dos_puntos":11,"Tipo_Dato_Declaracion":12,"igual":13,"Declaracion_Exp":14,"punto_coma":15,"let":16,"const":17,"var":18,"int":19,"double":20,"char":21,"string":22,"boolean":23,"t_int":24,"t_double":25,"t_char":26,"t_string":27,"t_boolean":28,"mas":29,"menos":30,"por":31,"div":32,"potencia":33,"mod":34,"Entrada_Exp_Aritmetica":35,"Exp_Int":36,"Exp_Double":37,"Exp_Char":38,"Exp_String":39,"Exp_Boolean":40,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"EOF",10:"id",11:"dos_puntos",13:"igual",15:"punto_coma",16:"let",17:"const",18:"var",19:"int",20:"double",21:"char",22:"string",23:"boolean",24:"t_int",25:"t_double",26:"t_char",27:"t_string",28:"t_boolean",29:"mas",30:"menos",31:"por",32:"div",33:"potencia",34:"mod",36:"Exp_Int",37:"Exp_Double",38:"Exp_Char",39:"Exp_String",40:"Exp_Boolean"},
+productions_: [0,[3,2],[4,2],[4,1],[6,1],[6,1],[7,7],[7,5],[7,3],[7,5],[9,1],[9,1],[9,1],[12,1],[12,1],[12,1],[12,1],[12,1],[14,1],[14,1],[14,1],[14,1],[14,1],[8,3],[8,3],[8,3],[8,3],[8,3],[8,3],[8,1],[35,1],[35,1],[35,1],[35,1],[35,1]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
@@ -85,67 +85,74 @@ var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
  
-                 return new AST({label: 'INIT', son: [$$[$0-1]], line: yylineno});
-                
+                                return $$[$0-1]
+                                console.log("termine de analizar,el resultado es ",$$[$0-1]); 
+                            
 break;
 case 2:
-this.$ = new AST({label: 'Instrucciones', son: [$$[$0-1].son, $$[$0].son], line: yylineno});
+ $$[$0-1].push($$[$0]); this.$ = $$[$0-1];
 break;
 case 3:
-this.$ = new AST({label: 'Instrucciones', son: [$$[$0].son], line: yylineno});
+this.$ = [$$[$0]];
 break;
-case 4: case 5: case 6: case 7: case 8: case 9: case 10: case 11: case 12: case 13: case 14: case 15: case 16: case 17: case 18: case 19: case 20: case 21: case 22:
- this.$ = new AST({label: 'Instruccion', son: [$$[$0]], line: yylineno}); 
+case 4: case 10: case 11: case 12:
+ this.$ = $$[$0]; 
 break;
-case 23: case 24:
- this.$ = new AST({label: 'Incremento_Decremento', son: [$$[$0-2],$$[$0-1],$$[$0]], line: yylineno}); 
+case 5: case 13: case 14: case 15: case 16: case 17: case 18: case 19: case 20: case 21: case 22:
+ this.$ = $$[$0];
+break;
+case 6:
+ this.$ = new D_Id_Tipo_Exp($$[$0-6],$$[$0-5],$$[$0-3],$$[$0-1],_$[$0-6].first_line,_$[$0-6].first_column);  
+break;
+case 7:
+ this.$ = new D_Id_Exp($$[$0-4],$$[$0-3],$$[$0-1],_$[$0-4].first_line,_$[$0-4].first_column);  
+break;
+case 8:
+ this.$ = new D_Id($$[$0-2],$$[$0-1],_$[$0-2].first_line,_$[$0-2].first_column);  
+break;
+case 9:
+ this.$ = new D_Id_Tipo($$[$0-4],$$[$0-3],$$[$0-1],_$[$0-4].first_line,_$[$0-4].first_column);  
+break;
+case 23:
+ this.$ = new Arithmetic($$[$0-2],$$[$0],ArithmeticOptions.MAS,_$[$0-2].first_line,_$[$0-2].first_column); 
+break;
+case 24:
+ this.$ = new Arithmetic($$[$0-2],$$[$0],ArithmeticOptions.MENOS,_$[$0-2].first_line,_$[$0-2].first_column); 
 break;
 case 25:
- this.$ = new AST({label: 'DECLARACION_VARIABLE', son: [$$[$0-2],$$[$0-1],$$[$0]], line: yylineno});  
+ this.$ = new Arithmetic($$[$0-2],$$[$0],ArithmeticOptions.MULT,_$[$0-2].first_line,_$[$0-2].first_column); 
 break;
-case 26: case 27: case 28: case 29: case 30: case 31:
- this.$ = new AST({label: 'Lista_Declaraciones', son: [...$$[$0-2].son,$$[$0]], line: yylineno}); 
+case 26:
+ this.$ = new Arithmetic($$[$0-2],$$[$0],ArithmeticOptions.DIV,_$[$0-2].first_line,_$[$0-2].first_column); 
 break;
-case 32: case 33: case 34: case 35: case 36: case 37:
- this.$ = new AST({label: 'Lista_Declaraciones', son: [$$[$0]], line: yylineno}); 
+case 27:
+ this.$ = new Arithmetic($$[$0-2],$$[$0],ArithmeticOptions.POT,_$[$0-2].first_line,_$[$0-2].first_column); 
 break;
-case 38:
- this.$ = new AST({label: 'Declaracion_Id_Tipo_Corchetes_Expresion', son: [$$[$0-5],$$[$0-4],$$[$0-3],$$[$0-2],$$[$0-1],$$[$0]], line: yylineno}); 
+case 28:
+ this.$ = new Arithmetic($$[$0-2],$$[$0],ArithmeticOptions.MOD,_$[$0-2].first_line,_$[$0-2].first_column); 
 break;
-case 39:
- this.$ = new AST({label: 'Declaracion_Id_Tipo_Expresion', son: [$$[$0-4],$$[$0-3],$$[$0-2],$$[$0-1],$$[$0]], line: yylineno}); 
+case 29:
+ this.$ = $$[$0]
 break;
-case 40:
- this.$ = new AST({label: 'Declaracion_Id_Expresion', son: [$$[$0-2],$$[$0-1],$$[$0]], line: yylineno}); 
+case 30:
+ this.$ = new Literal($$[$0], Type.INT,_$[$0].first_line,_$[$0].first_column);
 break;
-case 41:
- this.$ = new AST({label: 'Declaracion_Id_Tipo', son: [$$[$0-2],$$[$0-1],$$[$0]], line: yylineno}); 
+case 31:
+ this.$ = new Literal($$[$0], Type.DOUBLE,_$[$0].first_line,_$[$0].first_column);
 break;
-case 42:
- this.$ = new AST({label: 'Declaracion_Id', son: [$$[$0]], line: yylineno}); 
+case 32:
+ this.$ = new Literal($$[$0], Type.CHAR,_$[$0].first_line,_$[$0].first_column);
 break;
-case 43:
- this.$ = new AST({label: 'DEC_ID_TIPO_CORCHETES', son: [$$[$0-3],$$[$0-2],$$[$0-1],$$[$0]], line: yylineno}); 
+case 33:
+ this.$ = new Literal($$[$0], Type.STRING,_$[$0].first_line,_$[$0].first_column);
 break;
-case 44:
- this.$ = new AST({label: 'LISTA_CORCHETES', son: [...$$[$0-2].son, '[]'], line: yylineno}); 
-break;
-case 45:
- this.$ = new AST({label: 'LISTA_CORCHETES', son: ['[]'], line: yylineno}); 
-break;
-case 46: case 47:
- this.$ = new AST({label: 'TIPO_DEC_VARIABLE', son: [$$[$0]], line: yylineno}); 
-break;
-case 48: case 49: case 50: case 51: case 52:
- this.$ = new AST({label: 'Tipo_Variable', son: [$$[$0]], line: yylineno}); 
-break;
-case 53:
- this.$ = new AST({label: 'Tipo_Variable', son: [new AST({label: 'ID', son: [$$[$0]], line: yylineno})], line: yylineno}); 
+case 34:
+ this.$ = new Literal($$[$0], Type.BOOLEAN,_$[$0].first_line,_$[$0].first_column);
 break;
 }
 },
-table: [{3:1,4:2,6:3,7:4,8:5,9:$V0,10:$V1,11:$V2,12:$V3,13:$V4,14:$V5,15:$V6,16:$V7,17:$V8,18:$V9,19:$Va,20:$Vb,21:$Vc,22:$Vd,23:$Ve,24:$Vf,25:$Vg,26:$Vh,30:24,49:$Vi,50:$Vj},{1:[3]},{5:[1,27],6:28,7:4,8:5,9:$V0,10:$V1,11:$V2,12:$V3,13:$V4,14:$V5,15:$V6,16:$V7,17:$V8,18:$V9,19:$Va,20:$Vb,21:$Vc,22:$Vd,23:$Ve,24:$Vf,25:$Vg,26:$Vh,30:24,49:$Vi,50:$Vj},o($Vk,[2,3]),o($Vk,[2,4]),o($Vk,[2,5]),o($Vk,[2,6]),o($Vk,[2,7]),o($Vk,[2,8]),o($Vk,[2,9]),o($Vk,[2,10]),o($Vk,[2,11]),o($Vk,[2,12]),o($Vk,[2,13]),o($Vk,[2,14]),o($Vk,[2,15]),o($Vk,[2,16]),o($Vk,[2,17]),o($Vk,[2,18]),o($Vk,[2,19]),o($Vk,[2,20]),o($Vk,[2,21]),o($Vk,[2,22]),{27:[1,29],29:[1,30]},{26:$Vl,31:31,33:32,34:33,35:[1,34],36:35,37:36,38:37},o($Vm,[2,46]),o($Vm,[2,47]),{1:[2,1]},o($Vk,[2,2]),{28:[1,39]},{28:[1,40]},{28:[1,41],32:[1,42]},o($Vn,[2,32]),o($Vn,[2,33]),o($Vn,[2,34]),o($Vn,[2,35]),o($Vn,[2,36]),o($Vn,[2,37]),o($Vn,[2,42],{39:[1,43],42:[1,44]}),o($Vk,[2,23]),o($Vk,[2,24]),o($Vk,[2,25]),{26:$Vl,33:45,34:46,35:[1,47],36:48,37:49,38:50},{26:[1,57],40:51,51:[1,52],52:[1,53],53:[1,54],54:[1,55],55:[1,56]},{43:[1,58]},o($Vn,[2,26]),o($Vn,[2,27]),o($Vn,[2,28]),o($Vn,[2,29]),o($Vn,[2,30]),o($Vn,[2,31]),o($Vn,[2,41],{41:[1,60],42:[1,59]}),o($Vo,[2,48]),o($Vo,[2,49]),o($Vo,[2,50]),o($Vo,[2,51]),o($Vo,[2,52]),o($Vo,[2,53]),o($Vn,[2,40]),{43:[1,61]},{42:[1,62]},o($Vn,[2,39]),{43:[1,63]},o($Vn,[2,38])],
-defaultActions: {27:[2,1]},
+table: [{3:1,4:2,6:3,7:4,8:5,9:6,16:$V0,17:$V1,18:$V2,35:7,36:$V3,37:$V4,38:$V5,39:$V6,40:$V7},{1:[3]},{5:[1,16],6:17,7:4,8:5,9:6,16:$V0,17:$V1,18:$V2,35:7,36:$V3,37:$V4,38:$V5,39:$V6,40:$V7},o($V8,[2,3]),o($V8,[2,4]),o($V8,[2,5],{29:[1,18],30:[1,19],31:$V9,32:$Va,33:$Vb,34:$Vc}),{10:[1,24]},o($Vd,[2,29]),{10:[2,10]},{10:[2,11]},{10:[2,12]},o($Vd,[2,30]),o($Vd,[2,31]),o($Vd,[2,32]),o($Vd,[2,33]),o($Vd,[2,34]),{1:[2,1]},o($V8,[2,2]),{8:25,35:7,36:$V3,37:$V4,38:$V5,39:$V6,40:$V7},{8:26,35:7,36:$V3,37:$V4,38:$V5,39:$V6,40:$V7},{8:27,35:7,36:$V3,37:$V4,38:$V5,39:$V6,40:$V7},{8:28,35:7,36:$V3,37:$V4,38:$V5,39:$V6,40:$V7},{8:29,35:7,36:$V3,37:$V4,38:$V5,39:$V6,40:$V7},{8:30,35:7,36:$V3,37:$V4,38:$V5,39:$V6,40:$V7},{11:[1,31],13:[1,32],15:[1,33]},o($Ve,[2,23],{31:$V9,32:$Va,33:$Vb,34:$Vc}),o($Ve,[2,24],{31:$V9,32:$Va,33:$Vb,34:$Vc}),o($Vd,[2,25]),o($Vd,[2,26]),o($Vd,[2,27]),o($Vd,[2,28]),{12:34,19:[1,35],20:[1,36],21:[1,37],22:[1,38],23:[1,39]},{14:40,24:$Vf,25:$Vg,26:$Vh,27:$Vi,28:$Vj},o($V8,[2,8]),{13:[1,46],15:[1,47]},o($Vk,[2,13]),o($Vk,[2,14]),o($Vk,[2,15]),o($Vk,[2,16]),o($Vk,[2,17]),{15:[1,48]},{15:[2,18]},{15:[2,19]},{15:[2,20]},{15:[2,21]},{15:[2,22]},{14:49,24:$Vf,25:$Vg,26:$Vh,27:$Vi,28:$Vj},o($V8,[2,9]),o($V8,[2,7]),{15:[1,50]},o($V8,[2,6])],
+defaultActions: {8:[2,10],9:[2,11],10:[2,12],16:[2,1],41:[2,18],42:[2,19],43:[2,20],44:[2,21],45:[2,22]},
 parseError: function parseError (str, hash) {
     if (hash.recoverable) {
         this.trace(str);
@@ -293,10 +300,17 @@ parse: function parse(input) {
     return true;
 }};
 
-const { AST } = require('./src/AST/AST');
+const { AST } = require('../AST/AST');
 
+const { D_Id } = require("../instrucciones/declaraciones/D_Id");
+const { D_Id_Exp } = require("../instrucciones/declaraciones/D_Id_Exp");
+const { D_Id_Tipo } = require("../instrucciones/declaraciones/D_Id_Tipo");
+const { D_Id_Tipo_Exp } = require("../instrucciones/declaraciones/D_Id_Tipo_Exp");
 
-    //este es un comentario
+const { Literal } = require('../expresiones/literal')
+const { Type } = require('../symbols/type')
+const { Arithmetic } = require('../expresiones/Aritmeticas/aritmeticas')
+const { ArithmeticOptions } = require('../expresiones/Aritmeticas/aritmeticOptions')
 /* generated by jison-lex 0.3.4 */
 var lexer = (function(){
 var lexer = ({
@@ -632,291 +646,305 @@ break;
 case 2:// comentario multiple líneas
 break;
 case 3:
-                        lista.push("el lexema encontrado es :"+ yy_.yytext);       
-                        return 52;
+                        console.log("reconoci palabra reservada: "+yy_.yytext);
+                        return 17;
                     
 break;
 case 4:
-                        lista.push("el lexema encontrado es :"+ yy_.yytext);       
-                        return 53;
+                        console.log("reconoci palabra reservada: "+yy_.yytext);
+                        return 18;
                     
 break;
 case 5:
-                        lista.push("el lexema encontrado es :"+ yy_.yytext);       
-                        return 51;
+                        console.log("reconoci palabra reservada: "+yy_.yytext);
+                        return 16;
                     
 break;
 case 6:
-                        lista.push("el lexema encontrado es :"+ yy_.yytext);       
-                        return 54;
+                        console.log("el lexema encontrado es :"+ yy_.yytext);       
+                        return 24;
                     
 break;
 case 7:
-                        lista.push("el lexema encontrado es :"+ yy_.yytext);       
-                        return 26;
+                        console.log("el lexema encontrado es :"+ yy_.yytext);       
+                        return 25;
                     
 break;
 case 8:
-                        console.log("reconoci expresión logica: "+yy_.yytext);
-                        return 28;
+                        console.log("el lexema encontrado es :"+ yy_.yytext);       
+                        return 26;
                     
 break;
 case 9:
-                        console.log("reconoci expresión logica: "+yy_.yytext);
-                        return 32;
+                        console.log("el lexema encontrado es :"+ yy_.yytext);       
+                        return 27;
                     
 break;
 case 10:
-                        console.log("reconoci expresión logica: "+yy_.yytext);
-                        return 39;
+                        console.log("el lexema encontrado es :"+ yy_.yytext);       
+                        return 28;
                     
 break;
 case 11:
                         console.log("reconoci expresión logica: "+yy_.yytext);
-                        return 'llave_izq';
+                        return 15;
                     
 break;
 case 12:
                         console.log("reconoci expresión logica: "+yy_.yytext);
-                        return 'llave_der';
+                        return 'coma';
                     
 break;
 case 13:
                         console.log("reconoci expresión logica: "+yy_.yytext);
-                        return 'par_izq';
+                        return 11;
                     
 break;
 case 14:
                         console.log("reconoci expresión logica: "+yy_.yytext);
-                        return 'par_der';
+                        return 'llave_izq';
                     
 break;
 case 15:
                         console.log("reconoci expresión logica: "+yy_.yytext);
-                        return 47;
+                        return 'llave_der';
                     
 break;
 case 16:
                         console.log("reconoci expresión logica: "+yy_.yytext);
-                        return 48;
+                        return 'par_izq';
                     
 break;
 case 17:
                         console.log("reconoci expresión logica: "+yy_.yytext);
-                        return 'punto';
+                        return 'par_der';
                     
 break;
 case 18:
-                        console.log("reconoci incremento: "+yy_.yytext);
-                        return 27
+                        console.log("reconoci expresión logica: "+yy_.yytext);
+                        return 'cor_izq';
                     
 break;
 case 19:
-                        console.log("reconoci decremento logica: "+yy_.yytext);
-                        return 29
+                        console.log("reconoci expresión logica: "+yy_.yytext);
+                        return 'cor_der';
                     
 break;
 case 20:
                         console.log("reconoci expresión logica: "+yy_.yytext);
-                        return 'mas';
+                        return 'punto';
                     
 break;
 case 21:
-                        console.log("reconoci expresión logica: "+yy_.yytext);
-                        return 'menos';
+                        console.log("reconoci incremento: "+yy_.yytext);
+                        return 'incremento'
                     
 break;
 case 22:
-                        console.log("reconoci expresión logica: "+yy_.yytext);
-                        return 'por';
+                        console.log("reconoci decremento logica: "+yy_.yytext);
+                        return 'decremento'
                     
 break;
 case 23:
                         console.log("reconoci expresión logica: "+yy_.yytext);
-                        return 'div';
+                        return 29;
                     
 break;
 case 24:
                         console.log("reconoci expresión logica: "+yy_.yytext);
-                        return 'potencia';
+                        return 30;
                     
 break;
 case 25:
                         console.log("reconoci expresión logica: "+yy_.yytext);
-                        return 'mod';
+                        return 31;
                     
 break;
 case 26:
-                        console.log("reconoci expresión relacional: "+yy_.yytext);   
-                        return 'mayor';
+                        console.log("reconoci expresión logica: "+yy_.yytext);
+                        return 32;
                     
 break;
 case 27:
-                        console.log("reconoci expresión relacional: "+yy_.yytext);   
-                        return 'menor';
+                        console.log("reconoci expresión logica: "+yy_.yytext);
+                        return 33;
                     
 break;
 case 28:
-                        console.log("reconoci expresión relacional: "+yy_.yytext);
-                        return 'mayor_igual';
+                        console.log("reconoci expresión logica: "+yy_.yytext);
+                        return 34;
                     
 break;
 case 29:
                         console.log("reconoci expresión relacional: "+yy_.yytext);   
-                        return 'menor_igual';
+                        return 'mayor';
                     
 break;
 case 30:
                         console.log("reconoci expresión relacional: "+yy_.yytext);   
-                        return 'igual_que';
+                        return 'menor';
                     
 break;
 case 31:
+                        console.log("reconoci expresión relacional: "+yy_.yytext);
+                        return 'mayor_igual';
+                    
+break;
+case 32:
+                        console.log("reconoci expresión relacional: "+yy_.yytext);   
+                        return 'menor_igual';
+                    
+break;
+case 33:
+                        console.log("reconoci expresión relacional: "+yy_.yytext);   
+                        return 'igual_que';
+                    
+break;
+case 34:
                         console.log("reconoci expresión relacional: "+yy_.yytext);   
                         return 'dif_que';
                     
 break;
-case 32:
+case 35:
                         console.log("reconoci expresión logica: "+yy_.yytext);
                         return 'or';
                     
 break;
-case 33:
+case 36:
                         console.log("reconoci expresión logica: "+yy_.yytext);
                         return 'and';
                     
 break;
-case 34:
+case 37:
                         console.log("reconoci expresión logica: "+yy_.yytext);
                         return 'xor';
                     
 break;
-case 35:
+case 38:
                         console.log("reconoci expresión logica: "+yy_.yytext);
                         return 'not';
                     
 break;
-case 36:
-                        console.log("reconoci asignacion: "+yy_.yytext);
-                        return 42;
-                    
-break;
-case 37:
-                        console.log("reconoci palabra reservada: "+yy_.yytext);
-                        return 50;
-                    
-break;
-case 38:
-                        console.log("reconoci palabra reservada: "+yy_.yytext);
-                        return 'int';
-                    
-break;
 case 39:
-                        console.log("reconoci palabra reservada: "+yy_.yytext);
-                        return 'double';
+                        console.log("reconoci asignacion: "+yy_.yytext);
+                        return 13;
                     
 break;
 case 40:
                         console.log("reconoci palabra reservada: "+yy_.yytext);
-                        return 'char';
+                        return 19;
                     
 break;
 case 41:
                         console.log("reconoci palabra reservada: "+yy_.yytext);
-                        return 54;
+                        return 20;
                     
 break;
 case 42:
                         console.log("reconoci palabra reservada: "+yy_.yytext);
-                        return 'string';
+                        return 21;
                     
 break;
 case 43:
                         console.log("reconoci palabra reservada: "+yy_.yytext);
-                        return 'if';
+                        return 23;
                     
 break;
 case 44:
                         console.log("reconoci palabra reservada: "+yy_.yytext);
-                        return 'else';
+                        return 22;
                     
 break;
 case 45:
-                        console.log("reconoci palabra reservada: "+yy_.yytext);
-                        return 'switch';
+                        console.log("el lexema encontrado es :"+ yy_.yytext);       
+                        return 10;
                     
 break;
 case 46:
                         console.log("reconoci palabra reservada: "+yy_.yytext);
-                        return 'case';
+                        return 'if';
                     
 break;
 case 47:
                         console.log("reconoci palabra reservada: "+yy_.yytext);
-                        return 'for';
+                        return 'else';
                     
 break;
 case 48:
                         console.log("reconoci palabra reservada: "+yy_.yytext);
-                        return 'while';
+                        return 'switch';
                     
 break;
 case 49:
                         console.log("reconoci palabra reservada: "+yy_.yytext);
-                        return 'do';
+                        return 'case';
                     
 break;
 case 50:
                         console.log("reconoci palabra reservada: "+yy_.yytext);
-                        return 'break';
+                        return 'for';
                     
 break;
 case 51:
                         console.log("reconoci palabra reservada: "+yy_.yytext);
-                        return 'continue';
+                        return 'while';
                     
 break;
 case 52:
                         console.log("reconoci palabra reservada: "+yy_.yytext);
-                        return 55;
+                        return 'do';
                     
 break;
 case 53:
                         console.log("reconoci palabra reservada: "+yy_.yytext);
-                        return 'call';
+                        return 'break';
                     
 break;
 case 54:
                         console.log("reconoci palabra reservada: "+yy_.yytext);
-                        return 'return';
+                        return 'continue';
                     
 break;
 case 55:
                         console.log("reconoci palabra reservada: "+yy_.yytext);
-                        return 'println';
+                        return 'void';
                     
 break;
 case 56:
                         console.log("reconoci palabra reservada: "+yy_.yytext);
-                        return 'print';
+                        return 'call';
                     
 break;
 case 57:
                         console.log("reconoci palabra reservada: "+yy_.yytext);
+                        return 'return';
+                    
+break;
+case 58:
+                        console.log("reconoci palabra reservada: "+yy_.yytext);
+                        return 'println';
+                    
+break;
+case 59:
+                        console.log("reconoci palabra reservada: "+yy_.yytext);
+                        return 'print';
+                    
+break;
+case 60:
+                        console.log("reconoci palabra reservada: "+yy_.yytext);
                         return 'typeof';
                     
 break;
-case 58:return 5; 
+case 61:return 5; 
 break;
-case 59:
-                        const er = new error_1.error('Error Lexico: ' + yy_.yytext + ' no es valido, en la line: ' + yy_.yylloc.first_line + ', en la columna: ' + (yy_.yylloc.first_column+1)); 
-                        errores_1.Errores.getInstance().push(er);
+case 62:
+                        console.error('Este es un error léxico: ' + yy_.yytext + ', en la linea: ' + yy_.yylloc.first_line + ', en la columna: ' + (yy_.yylloc.first_column+1));
                     
 break;
 }
 },
-rules: [/^(?:\s+)/i,/^(?:\/\/.*)/i,/^(?:[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/])/i,/^(?:(["-"|"+"]?[0-9]+\b))/i,/^(?:(["-"|"+"]?[0-9]+(\.[0-9]+)))/i,/^(?:("[^\"]*"))/i,/^(?:(true|false\b))/i,/^(?:(([a-zA-Z])[a-zA-Z0-9_ñÑ]*))/i,/^(?:;)/i,/^(?:,)/i,/^(?::)/i,/^(?:\{)/i,/^(?:\})/i,/^(?:\()/i,/^(?:\))/i,/^(?:\[)/i,/^(?:\])/i,/^(?:\.)/i,/^(?:\+\+)/i,/^(?:--)/i,/^(?:\+)/i,/^(?:-)/i,/^(?:\*)/i,/^(?:\/)/i,/^(?:\*\*)/i,/^(?:%)/i,/^(?:>)/i,/^(?:<)/i,/^(?:>=)/i,/^(?:<=)/i,/^(?:==)/i,/^(?:!=)/i,/^(?:\|\|)/i,/^(?:&&)/i,/^(?:\^)/i,/^(?:!)/i,/^(?:=)/i,/^(?:const\b)/i,/^(?:int\b)/i,/^(?:double\b)/i,/^(?:char\b)/i,/^(?:boolean\b)/i,/^(?:string\b)/i,/^(?:if\b)/i,/^(?:else\b)/i,/^(?:switch\b)/i,/^(?:case\b)/i,/^(?:for\b)/i,/^(?:while\b)/i,/^(?:do\b)/i,/^(?:break\b)/i,/^(?:continue\b)/i,/^(?:void\b)/i,/^(?:call\b)/i,/^(?:return\b)/i,/^(?:println\b)/i,/^(?:print\b)/i,/^(?:typeof\b)/i,/^(?:$)/i,/^(?:.)/i],
-conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59],"inclusive":true}}
+rules: [/^(?:\s+)/i,/^(?:\/\/.*)/i,/^(?:[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/])/i,/^(?:const\b)/i,/^(?:var\b)/i,/^(?:let\b)/i,/^(?:(["-"|"+"]?[0-9]+\b))/i,/^(?:(["-"|"+"]?[0-9]+(\.[0-9]+)))/i,/^(?:('[^\']?'))/i,/^(?:("[^\"]*"))/i,/^(?:(true|false\b))/i,/^(?:;)/i,/^(?:,)/i,/^(?::)/i,/^(?:\{)/i,/^(?:\})/i,/^(?:\()/i,/^(?:\))/i,/^(?:\[)/i,/^(?:\])/i,/^(?:\.)/i,/^(?:\+\+)/i,/^(?:--)/i,/^(?:\+)/i,/^(?:-)/i,/^(?:\*)/i,/^(?:\/)/i,/^(?:\*\*)/i,/^(?:%)/i,/^(?:>)/i,/^(?:<)/i,/^(?:>=)/i,/^(?:<=)/i,/^(?:==)/i,/^(?:!=)/i,/^(?:\|\|)/i,/^(?:&&)/i,/^(?:\^)/i,/^(?:!)/i,/^(?:=)/i,/^(?:int\b)/i,/^(?:double\b)/i,/^(?:char\b)/i,/^(?:boolean\b)/i,/^(?:string\b)/i,/^(?:(([a-zA-Z])[a-zA-Z0-9_ñÑ]*))/i,/^(?:if\b)/i,/^(?:else\b)/i,/^(?:switch\b)/i,/^(?:case\b)/i,/^(?:for\b)/i,/^(?:while\b)/i,/^(?:do\b)/i,/^(?:break\b)/i,/^(?:continue\b)/i,/^(?:void\b)/i,/^(?:call\b)/i,/^(?:return\b)/i,/^(?:println\b)/i,/^(?:print\b)/i,/^(?:typeof\b)/i,/^(?:$)/i,/^(?:.)/i],
+conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62],"inclusive":true}}
 });
 return lexer;
 })();
